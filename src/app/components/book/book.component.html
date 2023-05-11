@@ -1,0 +1,27 @@
+<hr class="my-4">
+<div class="search panel-body">
+    <input class="form-control" placeholder="Filter books..."
+        [(ngModel)]="searchTerm" 
+        (keyup.enter)="getBooks()">
+</div>
+<hr class="my-4">
+
+<!--Found any book-->
+<div class="container" *ngIf="hasFoundAny">
+    <div *ngFor="let item of data" class="card">
+
+        <img src='https://covers.openlibrary.org/b/id/{{item.cover_i}}-L.jpg'>
+        <div class="card-body">
+            <h5 class="card-title">
+                {{item.title}}
+            </h5>
+            <p class="card-text">
+                {{item.author_name}}
+            </p>
+        </div>
+    </div>
+</div>
+<!--No book in this term-->
+<div class="container" *ngIf="!hasFoundAny">
+    <h5>No results</h5>
+</div>

@@ -13,4 +13,8 @@ export class DataService {
   getNews(){
     return this.httpClient.get<any>(`https://newsapi.org/v2/everything?q=DevOps&sortBy=popularity&apiKey=${this.API_KEY}`);
   }
+
+  getBooksByTitle(searchTerm: string){
+    return this.httpClient.get<any>(`https://openlibrary.org/search.json?title=${searchTerm}`)
+  }
 }
