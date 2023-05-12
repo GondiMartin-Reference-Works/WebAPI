@@ -10,7 +10,7 @@
 <div class="container" *ngIf="hasFoundAny">
     <div *ngFor="let item of books" class="card">
 
-        <img src='https://covers.openlibrary.org/b/id/{{item.coverId}}-L.jpg'>
+        <img *ngIf="item.coverId" src='https://covers.openlibrary.org/b/id/{{item.coverId}}-L.jpg'>
         <div class="card-body">
             <h5 class="card-title">
                 {{item.title}}

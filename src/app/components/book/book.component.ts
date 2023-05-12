@@ -32,7 +32,6 @@ export class BookComponent implements OnInit {
           };
         });
         this.hasFoundAny = (this.books.length == 0) ? false : true;
-        console.log(this.hasFoundAny);
     });
   }
   
