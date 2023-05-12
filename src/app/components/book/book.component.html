@@ -1,3 +1,9 @@
+<div class="jumbotron">
+    <h1 class="display-4">Hello, Visitor!</h1>
+    <p class="lead">
+      Search any book you like! 
+    </p>
+  </div>
 <hr class="my-4">
 <div class="search panel-body">
     <input class="form-control" placeholder="Filter books..."
@@ -9,14 +15,15 @@
 <!--Found any book-->
 <div class="container" *ngIf="hasFoundAny">
     <div *ngFor="let item of books" class="card">
-
         <img *ngIf="item.coverId" src='https://covers.openlibrary.org/b/id/{{item.coverId}}-L.jpg'>
         <div class="card-body">
             <h5 class="card-title">
                 {{item.title}}
             </h5>
             <p class="card-text">
-                {{item.authorName}}
+                <a [routerLink]="'/author'">
+                    {{item.authorName}}
+                </a>
             </p>
         </div>
     </div>

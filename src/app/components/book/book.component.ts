@@ -23,6 +23,7 @@ export class BookComponent implements OnInit {
     this.bookService.getBooksByTitle(this.searchTerm)
       .subscribe((data: { docs: any[] }) => {
         this.books = data.docs.map((bookData) => {
+          console.log(bookData);
           return {
             coverId: bookData.cover_i,
             editionCount: bookData.edition_count,

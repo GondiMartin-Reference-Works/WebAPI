@@ -7,12 +7,14 @@ import { AppComponent } from './components/library-app/library-app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BookComponent } from './components/book/book.component';
+import { AuthorComponent } from './components/author/author.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookComponent
+    BookComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,
