@@ -11,14 +11,16 @@ import { timer } from 'rxjs';
 })
 export class BookComponent implements OnInit {
 
-  books: Book[] = [];
+  books: Book[] | null = [];
   searchTerm: string = "";
   hasFoundAny: boolean = false;
 
   constructor(public bookService : BookService, private router: Router) {}
 
    ngOnInit(): void {
-    this.books = [];
+    this.loadBooks();
+    this.hasFoundAny = (this.books?.length == 0) ? false : true;
+    console.log(this.books);
   }
 
   getBooks(){
@@ -30,17 +32,36 @@ export class BookComponent implements OnInit {
             coverId: bookData.cover_i,
             editionCount: bookData.edition_count,
             title: bookData.title,
-            authorName: bookData.author_name,
+            authorNames: bookData.author_name,
             firstPublishYear: bookData.first_publish_year,
             publisher: bookData.publisher[0],
+            authorKeys: bookData.author_key,
           };
         });
         this.hasFoundAny = (this.books.length == 0) ? false : true;
+        this.saveBooks();
     });
+    
   }
 
   saveBook(_book: Book){
     localStorage.setItem('selectedBook', JSON.stringify(_book));
+    return timer(200);
+  }
+
+  saveBooks(){
+    localStorage.setItem('books', JSON.stringify(this.books));
+    return timer(200);
+  }
+
+  loadBooks(){
+    const storedBooks = localStorage.getItem('books');
+    if (storedBooks)
+      this.books = JSON.parse(storedBooks);
+  }
+
+  saveAuthorKeys(authorKeys: string){
+    localStorage.setItem('authorKeys', JSON.stringify(authorKeys));
     return timer(200);
   }
 }

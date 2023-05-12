@@ -15,21 +15,23 @@
 <!--Found any book-->
 <div class="container" *ngIf="hasFoundAny">
     <div *ngFor="let book of books" class="card">
-        <img class="card-img-top" *ngIf="book.coverId" src='https://covers.openlibrary.org/b/id/{{book.coverId}}-L.jpg'>
+        <div *ngIf="book.coverId">
+            <img class="card-img-top"  src='https://covers.openlibrary.org/b/id/{{book.coverId}}-L.jpg'>
+        </div>
         <div class="card-body">
             <h5 class="card-title">
                 {{book.title}}
             </h5>
             <p class="card-text">
-                {{book.authorName}}
+                {{book.authorNames}}
             </p>
         </div>
         <div class="card-body d-flex align-items-end justify-content-between">
             <button class="btn btn-primary" [routerLink]="['/book/' + book.title]" (click)="saveBook(book)">
                 See details
             </button>
-            <button class="btn btn-primary float-end justify-content-end" [routerLink]="['/author/' + book.authorName]">
-                Check author
+            <button *ngIf="book.authorNames" class="btn btn-primary float-end justify-content-end" [routerLink]="['/author/' + book.authorNames]" (click)="saveAuthorKeys(book.authorKeys)">
+                Check authors
             </button>
         </div>
     </div>

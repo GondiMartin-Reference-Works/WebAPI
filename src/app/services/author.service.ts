@@ -8,7 +8,12 @@ export class AuthorService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAuthorByName(authorName: string): any{
-    return this.httpClient.get<any>(`https://openlibrary.org/search/authors.json?q=${authorName}`);
+  getAuthorByKey(authorKey: string | null): any{
+    return this.httpClient.get<any>(`https://openlibrary.org/authors/${authorKey}.json`);
+  }
+
+  loadAuthorKeys(): string[] | null{
+    const item: string | null = localStorage.getItem('authorKeys');
+    return (item) ? JSON.parse(item) : null;
   }
 }

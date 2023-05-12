@@ -2,7 +2,8 @@ export interface Book {
     coverId: number;
     editionCount: number;
     title: string;
-    authorName: string;
+    authorNames: string;
     firstPublishYear: number;
     publisher: string;
+    authorKeys: string;
 }
