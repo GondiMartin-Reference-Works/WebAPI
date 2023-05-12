@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService }  from '../../services/data.service';
+import { Observable, delay, map, timer } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -15,16 +16,16 @@ export class BookComponent implements OnInit {
   constructor(public dataService : DataService) {}
 
    ngOnInit(): void {
-    this.data = [];
-    this.hasFoundAny = false;
   }
 
   getBooks(){
-    this.dataService.getBooksByTitle(this.searchTerm).subscribe((data)=>{
-      console.log(data);
-      this.data = data['docs'];
-    });
-    this.hasFoundAny = (this.data?.length == 0) ? false : true;
+    this.dataService.getBooksByTitle(this.searchTerm)
+      .subscribe((books)=>{
+        console.log(books);
+        this.data = books['docs'];
+        this.hasFoundAny = (this.data?.length == 0) ? false : true;
+        console.log(this.hasFoundAny);
+      });
   }
 
 }
