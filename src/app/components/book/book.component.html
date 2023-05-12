@@ -14,15 +14,15 @@
 
 <!--Found any book-->
 <div class="container" *ngIf="hasFoundAny">
-    <div *ngFor="let item of books" class="card">
-        <img *ngIf="item.coverId" src='https://covers.openlibrary.org/b/id/{{item.coverId}}-L.jpg'>
+    <div *ngFor="let book of books" class="card">
+        <img *ngIf="book.coverId" src='https://covers.openlibrary.org/b/id/{{book.coverId}}-L.jpg'>
         <div class="card-body">
             <h5 class="card-title">
-                {{item.title}}
+                {{book.title}}
             </h5>
             <p class="card-text">
-                <a [routerLink]="'/author'">
-                    {{item.authorName}}
+                <a [routerLink]="['/author/' + book.authorName]">
+                    {{book.authorName}}
                 </a>
             </p>
         </div>
