@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService }  from '../../services/data.service';
-import { Observable, delay, map, timer } from 'rxjs';
+import { BookService }  from '../../services/book.service';
+import { Book } from 'src/app/models/book.model';
 
 @Component({
   selector: 'app-book',
@@ -9,23 +9,33 @@ import { Observable, delay, map, timer } from 'rxjs';
 })
 export class BookComponent implements OnInit {
 
-  data: any[] = [];
+  books: Book[] = [];
   searchTerm: string = "";
   hasFoundAny: boolean = false;
 
-  constructor(public dataService : DataService) {}
+  constructor(public bookService : BookService) {}
 
    ngOnInit(): void {
+    this.books = [];
   }
 
   getBooks(){
-    this.dataService.getBooksByTitle(this.searchTerm)
-      .subscribe((books)=>{
-        console.log(books);
-        this.data = books['docs'];
-        this.hasFoundAny = (this.data?.length == 0) ? false : true;
+    this.bookService.getBooksByTitle(this.searchTerm)
+      .subscribe((data: { docs: any[] }) => {
+        this.books = data.docs.map((bookData) => {
+          return {
+            coverId: bookData.cover_i,
+            editionCount: bookData.edition_count,
+            title: bookData.title,
+            authorName: bookData.author_name,
+            firstPublishYear: bookData.first_publish_year
+          };
+        });
+        this.hasFoundAny = (this.books.length == 0) ? false : true;
         console.log(this.hasFoundAny);
-      });
+    });
   }
+  
+  
 
 }

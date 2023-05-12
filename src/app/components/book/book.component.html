@@ -8,15 +8,15 @@
 
 <!--Found any book-->
 <div class="container" *ngIf="hasFoundAny">
-    <div *ngFor="let item of data" class="card">
+    <div *ngFor="let item of books" class="card">
 
-        <img src='https://covers.openlibrary.org/b/id/{{item.cover_i}}-L.jpg'>
+        <img src='https://covers.openlibrary.org/b/id/{{item.coverId}}-L.jpg'>
         <div class="card-body">
             <h5 class="card-title">
                 {{item.title}}
             </h5>
             <p class="card-text">
-                {{item.author_name}}
+                {{item.authorName}}
             </p>
         </div>
     </div>
