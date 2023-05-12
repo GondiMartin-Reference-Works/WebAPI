@@ -24,12 +24,11 @@
                 {{book.authorName}}
             </p>
         </div>
-        <div class="card-body">
-            <button class="btn btn-primary float-start" [routerLink]="['/book/' + book.title]"
-            (click)="saveBook(book)">
+        <div class="card-body d-flex align-items-end justify-content-between">
+            <button class="btn btn-primary" [routerLink]="['/book/' + book.title]" (click)="saveBook(book)">
                 See details
             </button>
-            <button class="btn btn-primary float-end" [routerLink]="['/author/' + book.authorName]">
+            <button class="btn btn-primary float-end justify-content-end" [routerLink]="['/author/' + book.authorName]">
                 Check author
             </button>
         </div>

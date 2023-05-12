@@ -1,6 +1,6 @@
 <div class="container details">
   <div class="row mx-auto">
-    <div class="col">
+    <div class="col" *ngIf="book?.coverId">
       <img class="card-img-top cover" src="https://covers.openlibrary.org/b/id/{{book?.coverId}}-L.jpg" alt="Card image cap">
     </div>
     <div class="col mt-auto mb-auto">
