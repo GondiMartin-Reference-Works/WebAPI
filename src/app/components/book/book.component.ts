@@ -34,7 +34,7 @@ export class BookComponent implements OnInit {
             title: bookData.title,
             authorNames: bookData.author_name,
             firstPublishYear: bookData.first_publish_year,
-            publisher: bookData.publisher[0],
+            publisher: (bookData.publisher != undefined) ? bookData.publisher[0] : "No one",
             authorKeys: bookData.author_key,
           };
         });
