@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Author } from 'src/app/models/author.model';
+import { Book } from 'src/app/models/book.model';
 import { AuthorService } from 'src/app/services/author.service';
-
-interface bioObject{
-  type: string,
-  value: string,
-}
+import { BookService } from 'src/app/services/book.service';
 
 @Component({
   selector: 'app-author',
@@ -16,8 +12,9 @@ interface bioObject{
 export class AuthorComponent {
   authorKeys: string[] | null = [];
   authors: Author[] | null | undefined;
+  book: Book | null = null;
 
-  constructor(private authorService: AuthorService, private route: ActivatedRoute) {
+  constructor(private authorService: AuthorService, private bookService: BookService) {
     this.authors = [];
   }
 
@@ -37,6 +34,8 @@ export class AuthorComponent {
           });
         });
     });
+
+    this.book = this.bookService.loadBook();
 
     console.log(this.authors);
   }
