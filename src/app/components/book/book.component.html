@@ -31,7 +31,7 @@
                 <button class="btn btn-primary" [routerLink]="['/book/' + book.title]" (click)="saveBook(book)">
                     See details
                 </button>
-                <button *ngIf="book.authorNames" class="btn btn-primary float-end justify-content-end" [routerLink]="['/author/' + book.authorNames]" (click)="saveAuthorKeys(book.authorKeys)">
+                <button *ngIf="book.authorNames" class="btn btn-primary float-end justify-content-end" [routerLink]="['/author/' + book.authorNames]" (click)="saveAuthorKeys(book.authorKeys); saveBook(book)">
                     Check authors
                 </button>
             </div>

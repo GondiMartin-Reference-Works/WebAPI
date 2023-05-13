@@ -13,9 +13,4 @@ export class BookService {
   getBooksByTitle(searchTerm: string): any{
     return this.httpClient.get<any>(`https://openlibrary.org/search.json?title=${searchTerm}`);
   }
-
-  loadBook(): Book | null{
-    const item: string | null = localStorage.getItem('selectedBook');
-    return (item) ? JSON.parse(item) : null;
-  }
 }

@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Author } from 'src/app/models/author.model';
 import { Book } from 'src/app/models/book.model';
 import { AuthorService } from 'src/app/services/author.service';
-import { BookService } from 'src/app/services/book.service';
 
 @Component({
   selector: 'app-author',
@@ -14,7 +13,7 @@ export class AuthorComponent {
   authors: Author[] | null | undefined;
   book: Book | null = null;
 
-  constructor(private authorService: AuthorService, private bookService: BookService) {
+  constructor(private authorService: AuthorService) {
     this.authors = [];
   }
 
@@ -35,7 +34,7 @@ export class AuthorComponent {
         });
     });
 
-    this.book = this.bookService.loadBook();
+    this.book = this.loadBook();
 
     console.log(this.authors);
   }
@@ -43,5 +42,10 @@ export class AuthorComponent {
   writeBio(author: Author): string{
     const bio = (typeof(author.bio) === 'object') ? author.bio['value'] : author.bio;
     return bio;
+  }
+
+  loadBook(): Book | null{
+    const item: string | null = localStorage.getItem('selectedBook');
+    return (item) ? JSON.parse(item) : null;
   }
 }
