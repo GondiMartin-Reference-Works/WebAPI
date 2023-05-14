@@ -18,7 +18,7 @@ export class AuthorComponent {
   }
 
   ngOnInit() {
-    this.authorKeys = this.authorService.loadAuthorKeys();
+    this.authorKeys = this.loadAuthorKeys();
 
     this.authorKeys?.forEach((authorKey) => {
       console.log(authorKey);
@@ -39,13 +39,31 @@ export class AuthorComponent {
     console.log(this.authors);
   }
 
+  /**
+   * Write bio based on the fact that author can have it stored in an object and not stored too.
+   * @param author - the author with bio
+   * @returns the author's bio
+   */
   writeBio(author: Author): string{
     const bio = (typeof(author.bio) === 'object') ? author.bio['value'] : author.bio;
     return bio;
   }
 
+  /**
+   * Loads one selected book back from session storage.
+   * @returns the selected book
+   */
   loadBook(): Book | null{
-    const item: string | null = localStorage.getItem('selectedBook');
+    const item: string | null = sessionStorage.getItem('selectedBook');
+    return (item) ? JSON.parse(item) : null;
+  }
+
+  /**
+   * Loads author keys back from session storage
+   * @returns author keys.
+   */
+  loadAuthorKeys(): string[] | null{
+    const item: string | null = sessionStorage.getItem('authorKeys');
     return (item) ? JSON.parse(item) : null;
   }
 }

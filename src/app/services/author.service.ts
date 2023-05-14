@@ -8,12 +8,12 @@ export class AuthorService {
 
   constructor(private httpClient: HttpClient) { }
 
+  /**
+   * Gives author back with API call
+   * @param authorKey - the key we get from book data and used to search actor
+   * @returns an author in json
+   */
   getAuthorByKey(authorKey: string | null): any{
     return this.httpClient.get<any>(`https://openlibrary.org/authors/${authorKey}.json`);
-  }
-
-  loadAuthorKeys(): string[] | null{
-    const item: string | null = localStorage.getItem('authorKeys');
-    return (item) ? JSON.parse(item) : null;
   }
 }

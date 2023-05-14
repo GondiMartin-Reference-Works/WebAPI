@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService }  from '../../services/book.service';
 import { Book } from 'src/app/models/book.model';
-import { Router } from '@angular/router';
 import { timer } from 'rxjs';
 
 @Component({
@@ -15,14 +14,21 @@ export class BookComponent implements OnInit {
   searchTerm: string = "";
   hasFoundAny: boolean = false;
 
-  constructor(public bookService : BookService, private router: Router) {}
+  constructor(public bookService : BookService) {}
 
+  /**
+   * On comp. init. loads books back.
+   * If no book was found set hasFoundAny ("No results") true.
+   */
    ngOnInit(): void {
     this.loadBooks();
     this.hasFoundAny = (this.books?.length == 0) ? false : true;
     console.log(this.books);
   }
 
+  /**
+   * Gets books back from book service which calls the API
+   */
   getBooks(){
     this.bookService.getBooksByTitle(this.searchTerm)
       .subscribe((data: { docs: any[] }) => {
@@ -46,24 +52,39 @@ export class BookComponent implements OnInit {
     
   }
 
+  /**
+   * Saves one book into session storage
+   * @param _book - the book which needs to be saved
+   */
   saveBook(_book: Book){
-    localStorage.setItem('selectedBook', JSON.stringify(_book));
-    return timer(200);
+    sessionStorage.setItem('selectedBook', JSON.stringify(_book));
+    timer(200);
   }
 
+  /**
+   * Saves all the searched books into session storage
+   * @returns 
+   */
   saveBooks(){
-    localStorage.setItem('books', JSON.stringify(this.books));
-    return timer(200);
+    sessionStorage.setItem('books', JSON.stringify(this.books));
+    timer(200);
   }
 
+  /**
+   * Loads all the searched book from session storage
+   */
   loadBooks(){
-    const storedBooks = localStorage.getItem('books');
+    const storedBooks = sessionStorage.getItem('books');
     if (storedBooks)
       this.books = JSON.parse(storedBooks);
   }
 
+  /**
+   * Saves one author into session storage
+   * @param authorKeys - the author accessible via this key
+   */
   saveAuthorKeys(authorKeys: string){
-    localStorage.setItem('authorKeys', JSON.stringify(authorKeys));
-    return timer(200);
+    sessionStorage.setItem('authorKeys', JSON.stringify(authorKeys));
+    timer(200);
   }
 }

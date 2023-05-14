@@ -10,15 +10,21 @@ export class BookDetailsComponent implements OnInit {
 
   book: Book | null | undefined;
 
-  constructor(){
-  }
+  constructor(){}
 
+  /**
+   * On component initialization loads book back from session storage
+   */
   ngOnInit(): void {
     this.book = this.loadBook();
   }
 
+  /**
+   * Loads book back from session storage
+   * @returns the book
+   */
   loadBook(): Book | null{
-    const item: string | null = localStorage.getItem('selectedBook');
+    const item: string | null = sessionStorage.getItem('selectedBook');
     return (item) ? JSON.parse(item) : null;
   }
   
