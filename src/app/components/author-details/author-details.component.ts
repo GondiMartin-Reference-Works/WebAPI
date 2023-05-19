@@ -62,6 +62,10 @@ export class AuthorDetailsComponent {
     return (item) ? JSON.parse(item) : null;
   }
 
+  /**
+   * Loads author back from session storage
+   * @returns the author
+   */
   loadAuthor(): Author | null{
     const item: string | null = sessionStorage.getItem('selectedAuthor');
     return (item) ? JSON.parse(item) : null;
@@ -76,6 +80,10 @@ export class AuthorDetailsComponent {
     return (item) ? JSON.parse(item) : null;
   }
 
+  /**
+   * Decides who called the page. If the book.component.html then it's true, if the author...html then it's false, otherwise it's null
+   * @returns 
+   */
   getSwitchValue(): boolean | null{
     const item: string | null = sessionStorage.getItem('switch')
     const whoCalled: string | null = (item) ? JSON.parse(item) : null;

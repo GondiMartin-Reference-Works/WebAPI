@@ -27,7 +27,7 @@ export class BookComponent implements OnInit {
   }
 
   /**
-   * Gets books back from book service which calls the API
+   * Gets books from book service which calls the API
    */
   getBooks(){
     this.bookService.getBooksBySearchTerm(this.searchTerm)
@@ -88,6 +88,9 @@ export class BookComponent implements OnInit {
     timer(200);
   }
 
+  /**
+   * Used for author-details where the html page should know who called itself
+   */
   bookSwitch(){
     sessionStorage.setItem('switch', JSON.stringify('bookCalled'));
     timer(200);

@@ -21,6 +21,9 @@ export class AuthorComponent implements OnInit {
     this.hasFoundAny = (this.authors?.length == 0) ? false : true;
   }
 
+  /**
+   * Gets authors from book service which calls the API
+   */
   getAuthors(){
     this.authorService.getAuthorsBySearchTerm(this.searchTerm)
       .subscribe((data: { docs: any[] }) => {
@@ -41,27 +44,44 @@ export class AuthorComponent implements OnInit {
       });
   }
 
+  /**
+   * Saves all the searched authors into session storage
+   */
   saveAuthors(){
     sessionStorage.setItem('authors', JSON.stringify(this.authors));
     timer(200);
   }
 
+  /**
+   * Loads all the searched authors from session storage
+   */
   loadAuthors(){
     const storedAuthors = sessionStorage.getItem('authors');
     if (storedAuthors)
       this.authors = JSON.parse(storedAuthors);
   }
 
+  /**
+   * Saves one author into session storage
+   * @param authorKeys - the author accessible via this key
+   */
   saveAuthorKey(authorKey: string){
     sessionStorage.setItem('authorKey', JSON.stringify(authorKey));
     timer(200);
   }
 
+  /**
+   * Saves one author into session storage
+   * @param _author - the author which needs to be saved
+   */
   saveAuthor(_author: Author){
     sessionStorage.setItem('selectedAuthor', JSON.stringify(_author));
     timer(200);
   }
 
+  /**
+   * Used for author-details where the html page should know who called itself
+   */
   authorSwitch(){
     sessionStorage.setItem('switch', JSON.stringify('authorCalled'));
     timer(200);
