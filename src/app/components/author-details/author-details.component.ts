@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthorDetails } from 'src/app/models/author-details.model';
 import { Author } from 'src/app/models/author.model';
 import { Book } from 'src/app/models/book.model';
 import { AuthorService } from 'src/app/services/author.service';
@@ -10,8 +11,10 @@ import { AuthorService } from 'src/app/services/author.service';
 })
 export class AuthorDetailsComponent {
   authorKeys: string[] | null = [];
-  authors: Author[] | null | undefined;
+  authors: AuthorDetails[] | null | undefined;
   book: Book | null = null;
+  switchBookAuthor: boolean | null = true; // if book called: true, if author called: false, otherwse: null
+  author: Author | null = null;
 
   constructor(private authorService: AuthorService) {
     this.authors = [];
@@ -19,6 +22,7 @@ export class AuthorDetailsComponent {
 
   ngOnInit() {
     this.authorKeys = this.loadAuthorKeys();
+    this.switchBookAuthor = this.getSwitchValue();
 
     this.authorKeys?.forEach((authorKey) => {
       console.log(authorKey);
@@ -35,7 +39,7 @@ export class AuthorDetailsComponent {
     });
 
     this.book = this.loadBook();
-
+    this.author = this.loadAuthor();
     console.log(this.authors);
   }
 
@@ -44,7 +48,7 @@ export class AuthorDetailsComponent {
    * @param author - the author with bio
    * @returns the author's bio
    */
-  writeBio(author: Author): string{
+  writeBio(author: AuthorDetails): string{
     const bio = (typeof(author.bio) === 'object') ? author.bio['value'] : author.bio;
     return bio;
   }
@@ -58,6 +62,11 @@ export class AuthorDetailsComponent {
     return (item) ? JSON.parse(item) : null;
   }
 
+  loadAuthor(): Author | null{
+    const item: string | null = sessionStorage.getItem('selectedAuthor');
+    return (item) ? JSON.parse(item) : null;
+  }
+
   /**
    * Loads author keys back from session storage
    * @returns author keys.
@@ -65,5 +74,14 @@ export class AuthorDetailsComponent {
   loadAuthorKeys(): string[] | null{
     const item: string | null = sessionStorage.getItem('authorKeys');
     return (item) ? JSON.parse(item) : null;
+  }
+
+  getSwitchValue(): boolean | null{
+    const item: string | null = sessionStorage.getItem('switch')
+    const whoCalled: string | null = (item) ? JSON.parse(item) : null;
+    if( whoCalled ){
+      return (whoCalled === 'bookCalled') ? true : false;
+    }
+    return null;
   }
 }

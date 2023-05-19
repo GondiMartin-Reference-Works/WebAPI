@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="col-12">
-        <div class="row mx-4 mt-1">
+        <div class="row mx-4 mt-2">
             <div class="form-check col-6 d-flex justify-content-around">
                 <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
                 <label class="btn btn-dark" for="option1">Search books</label>
@@ -48,7 +48,7 @@
                     See details
                 </button>
                 <div class="col-1"><!--Nothing--></div>
-                <button *ngIf="book.authorNames" class="btn btn-primary col-6" [routerLink]="['/author/' + book.authorNames]" (click)="saveAuthorKeys(book.authorKeys); saveBook(book)">
+                <button *ngIf="book.authorNames" class="btn btn-primary col-6" [routerLink]="['/author/' + book.authorNames]" (click)="saveAuthorKeys(book.authorKeys); saveBook(book); bookSwitch()">
                     Check authors
                 </button>
             </div>

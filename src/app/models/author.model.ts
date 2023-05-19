@@ -1,7 +1,8 @@
-export interface Author {
+export interface Author{
+    id: number;
+    key: string;
     name: string;
-    fullerName: string;
     birthDate: string;
-    bio: string;
-    wikipedia: string;
+    topWork: string;
+    workCount: number;
 }

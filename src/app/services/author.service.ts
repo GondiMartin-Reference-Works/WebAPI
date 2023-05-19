@@ -16,4 +16,8 @@ export class AuthorService {
   getAuthorByKey(authorKey: string | null): any{
     return this.httpClient.get<any>(`https://openlibrary.org/authors/${authorKey}.json`);
   }
+
+  getAuthorsBySearchTerm(searchTerm: string | null): any{
+    return this.httpClient.get<any>(`https://openlibrary.org/search/authors.json?q=${searchTerm}`);
+  }
 }

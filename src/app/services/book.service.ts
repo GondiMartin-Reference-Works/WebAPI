@@ -15,7 +15,7 @@ export class BookService {
    * @param searchTerm - the term which needs to be seached
    * @returns books with json data
    */
-  getBooksByTitle(searchTerm: string): any{
+  getBooksBySearchTerm(searchTerm: string): any{
     return this.httpClient.get<any>(`https://openlibrary.org/search.json?title=${searchTerm}`);
   }
 }

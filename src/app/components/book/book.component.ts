@@ -30,7 +30,7 @@ export class BookComponent implements OnInit {
    * Gets books back from book service which calls the API
    */
   getBooks(){
-    this.bookService.getBooksByTitle(this.searchTerm)
+    this.bookService.getBooksBySearchTerm(this.searchTerm)
       .subscribe((data: { docs: any[] }) => {
         let i: number = 0;
         this.books = data.docs.map((bookData) => {
@@ -85,6 +85,11 @@ export class BookComponent implements OnInit {
    */
   saveAuthorKeys(authorKeys: string){
     sessionStorage.setItem('authorKeys', JSON.stringify(authorKeys));
+    timer(200);
+  }
+
+  bookSwitch(){
+    sessionStorage.setItem('switch', JSON.stringify('bookCalled'));
     timer(200);
   }
 }
