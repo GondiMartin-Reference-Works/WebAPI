@@ -1,0 +1,9 @@
+nav{
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    padding-left: 10px;
+}
+.my-image{
+    float: right;
+    width: 150px;
+}

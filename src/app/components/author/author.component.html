@@ -1,0 +1,52 @@
+<hr class="my-4">
+<div class="row">
+    <div class="col-12">
+        <div class="search panel-body">
+            <input class="form-control" placeholder="Filter authors..."
+            [(ngModel)]="searchTerm" 
+            (keyup.enter)="getAuthors()">
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row mx-4 mt-2">
+            <div class="form-check col-6 d-flex justify-content-around">
+                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
+                <label class="btn btn-dark" for="option1" [routerLink]="['']">Search books</label>
+            </div>
+            <div class="form-check col-6 d-flex justify-content-around">
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                <label class="btn btn-dark" for="option2">Search authors</label>
+            </div>
+        </div>
+    </div>
+</div>
+<hr class="my-2 mb-4">
+
+<!--Found any author-->
+<div class="container" *ngIf="hasFoundAny">
+    <div *ngFor="let author of authors" class="row card d-flex">
+        <div id="my-bookmark-{{author.id}}">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{author.name}}
+                </h5>
+                <p class="card-text">
+                    Bestseller: {{author.topWork}}
+                </p>
+                <p class="card-text font-italic">
+                    Already written {{author.workCount}} books
+                </p>
+            </div>
+            <div class="card-body row">
+                <button *ngIf="author.name" class="btn btn-primary col-12" [routerLink]="['/author/' + author.name]" (click)="saveAuthorKey(author.key); authorSwitch(); saveAuthor(author)">
+                    See details
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--No author in this term-->
+<div class="container" *ngIf="!hasFoundAny">
+    <h5>No results</h5>
+</div>

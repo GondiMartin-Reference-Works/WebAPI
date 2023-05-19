@@ -1,0 +1,23 @@
+<div class="container details">
+  <div class="row mx-auto">
+    <div class="col" *ngIf="book?.coverId">
+      <img class="card-img-top cover" src="https://covers.openlibrary.org/b/id/{{book?.coverId}}-L.jpg" alt="Card image cap">
+    </div>
+    <div class="col mt-auto mb-auto">
+      <h5 class="card-title">{{book?.title}}</h5>
+        <p class="card-text">Published by: {{book?.publisher}}</p>
+      <ul class="list-group">
+        <li *ngIf="book?.authorNames" class="list-group-item">Written by: 
+          <ul *ngFor="let author of book?.authorNames">
+            <li>{{author}}</li>
+          </ul>
+        </li>
+        <li class="list-group-item">First publish year: {{book?.firstPublishYear}}</li>
+        <li class="list-group-item">Edition count: {{book?.editionCount}}</li>
+      </ul>
+      <a class="btn btn-dark" href="../#my-bookmark-{{book?.id}}">
+        Back
+      </a>
+    </div>
+  </div>
+</div>
