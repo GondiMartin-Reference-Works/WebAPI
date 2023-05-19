@@ -7,16 +7,18 @@ import { AppComponent } from './components/library-app/library-app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { BookComponent } from './components/book/book.component';
-import { AuthorComponent } from './components/author/author.component';
+import { AuthorDetailsComponent } from './components/author-details/author-details.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
+import { AuthorComponent } from './components/author/author.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     BookComponent,
-    AuthorComponent,
-    BookDetailsComponent
+    AuthorDetailsComponent,
+    BookDetailsComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,

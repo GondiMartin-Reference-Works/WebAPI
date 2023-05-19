@@ -5,13 +5,28 @@
     </p>
 </div>
 <hr class="my-4">
-<div class="search panel-body">
-    <input class="form-control" placeholder="Filter books..."
-        [(ngModel)]="searchTerm" 
-        (keyup.enter)="getBooks()">
+<div class="row">
+    <div class="col-12">
+        <div class="search panel-body">
+            <input class="form-control" placeholder="Filter books..."
+                [(ngModel)]="searchTerm" 
+                (keyup.enter)="getBooks()">
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="row mx-4 mt-1">
+            <div class="form-check col-6 d-flex justify-content-around">
+                <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off">
+                <label class="btn btn-dark" for="option1">Search books</label>
+            </div>
+            <div class="form-check col-6 d-flex justify-content-around">
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                <label class="btn btn-dark" for="option2" [routerLink]="['/author']">Search authors</label>
+            </div>
+        </div>
+    </div>
 </div>
-
-<hr class="my-4">
+<hr class="my-2 mb-4">
 
 <!--Found any book-->
 <div class="container" *ngIf="hasFoundAny">

@@ -1,0 +1,30 @@
+<div *ngIf="authors">
+    <div *ngFor="let author of authors">
+        <div *ngIf="author.birthDate != undefined" class="container details">
+            <div class="row mx-auto">
+                <div class="col mt-auto mb-auto">
+                  <h5 class="card-title">{{author?.name}} - {{author?.birthDate}}</h5>
+                  <br>
+                  <blockquote class="blockquote">
+                    <p>{{writeBio(author)}}</p>
+                    <footer class="blockquote-footer">{{author?.fullerName}}</footer>
+                </blockquote>
+                  <p *ngIf="author?.wikipedia">Wikipedia: <a target="_blank" href="{{author?.wikipedia}}">here</a></p>
+                </div>
+              </div>
+        </div>
+        <div *ngIf="author.birthDate == undefined" class="continer details">
+            <h5>Sorry about: {{author?.name}}!</h5>
+            <p>We do not have any further information about the author!</p>
+        </div>
+    </div>
+</div>
+<div *ngIf="authors?.length==0">
+    <h5>Sorry!</h5>
+    <p>Sadly we do not have information about the authors!</p>
+</div>
+<a class="btn btn-dark" href="../#my-bookmark-{{book?.id}}">
+    Back
+</a>
+
+  
