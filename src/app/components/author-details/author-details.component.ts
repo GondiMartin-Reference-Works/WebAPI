@@ -11,6 +11,7 @@ import { AuthorService } from 'src/app/services/author.service';
 })
 export class AuthorDetailsComponent {
   authorKeys: string[] | null = [];
+  authorKey: string | null = "";
   authors: AuthorDetails[] | null | undefined;
   book: Book | null = null;
   switchBookAuthor: boolean | null = true; // if book called: true, if author called: false, otherwse: null
@@ -21,9 +22,41 @@ export class AuthorDetailsComponent {
   }
 
   ngOnInit() {
-    this.authorKeys = this.loadAuthorKeys();
     this.switchBookAuthor = this.getSwitchValue();
+    if(this.switchBookAuthor){
+      // Book called where there might be multiple authors
+      this.authorKeys = this.loadAuthorKeys();
+      this.getMultipleAuthorKeys();
+    }
+    else{
+      // Author called where there's only one author
+      this.authorKey = this.loadAuthorKey(); 
+      this.getOneAuthor();
+    } 
+    this.book = this.loadBook();
+  }
 
+  /**
+   * If Author Page called then we only need to fetch one author.
+   */
+  getOneAuthor(){
+    this.authorService.getAuthorByKey(this.authorKey)
+        .subscribe((data: any) => {
+          this.authors?.push({
+            name: data.name,
+            fullerName: data.fuller_name,
+            birthDate: data.birth_date,
+            bio: data.bio,
+            wikipedia: data.wikipedia,
+          });
+          this.author = this.loadAuthor();
+      });
+  }
+
+  /**
+   * If Book Page called then we need to fetch multiple authors.
+   */
+  getMultipleAuthorKeys(){
     this.authorKeys?.forEach((authorKey) => {
       console.log(authorKey);
       this.authorService.getAuthorByKey(authorKey)
@@ -37,10 +70,6 @@ export class AuthorDetailsComponent {
           });
         });
     });
-
-    this.book = this.loadBook();
-    this.author = this.loadAuthor();
-    console.log(this.authors);
   }
 
   /**
@@ -63,8 +92,8 @@ export class AuthorDetailsComponent {
   }
 
   /**
-   * Loads author back from session storage
-   * @returns the author
+   * Loads one selected author back from session storage. - using it for bookmark
+   * @returns the selected book
    */
   loadAuthor(): Author | null{
     const item: string | null = sessionStorage.getItem('selectedAuthor');
@@ -77,6 +106,15 @@ export class AuthorDetailsComponent {
    */
   loadAuthorKeys(): string[] | null{
     const item: string | null = sessionStorage.getItem('authorKeys');
+    return (item) ? JSON.parse(item) : null;
+  }
+
+  /**
+  * Loads one author key back from session storage - API call.
+  * @returns author key.
+  */
+  loadAuthorKey(): string | null{
+    const item: string | null = sessionStorage.getItem('authorKey');
     return (item) ? JSON.parse(item) : null;
   }
 

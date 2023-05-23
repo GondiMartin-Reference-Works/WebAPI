@@ -53,6 +53,14 @@ export class AuthorComponent implements OnInit {
   }
 
   /**
+   * Saves selected author into session storage - we use the selectedAuthor for Bookmark
+   */
+  saveAuthor(author: Author){
+    sessionStorage.setItem('selectedAuthor', JSON.stringify(author));
+    timer(200);
+  }
+
+  /**
    * Loads all the searched authors from session storage
    */
   loadAuthors(){
@@ -62,20 +70,11 @@ export class AuthorComponent implements OnInit {
   }
 
   /**
-   * Saves one author into session storage
+   * Saves one author's key into session storage - store it for API call
    * @param authorKeys - the author accessible via this key
    */
   saveAuthorKey(authorKey: string){
     sessionStorage.setItem('authorKey', JSON.stringify(authorKey));
-    timer(200);
-  }
-
-  /**
-   * Saves one author into session storage
-   * @param _author - the author which needs to be saved
-   */
-  saveAuthor(_author: Author){
-    sessionStorage.setItem('selectedAuthor', JSON.stringify(_author));
     timer(200);
   }
 
